@@ -1,0 +1,12 @@
+{
+  "name": "kaku-rpi",
+  "version": "1.0.0",
+  "description": "Node KlikAanKlikUit (KaKu) driver for Raspberry Pi",
+  "main": "index.js",
+  "author": "Robert Klep <robert@klep.name>",
+  "license": "MIT",
+  "repository" : "robertklep/node-kaku-rpi",
+  "dependencies": {
+    "rpio": "^0.9.12"
+  }
+}
