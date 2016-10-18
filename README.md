@@ -47,7 +47,7 @@ Arguments:
 * `PERIODUSEC`: number of microseconds to sleep between high/low transitions. This should be 375 (which is also the default).
 * `REPEATS`: number of times to repeat commands. This should be 8 (= the default).
 * `ADDRESS/DEVICE`: KaKu works with addresses (`A`, `B`, `C`, … for old-style devices, and a number for new-style devices) and devices (`1`, `2`, `3`, …). An device is configured to listen on a particular ADDRESS/DEVICE pair.
-* `STATE`: whether to switch the outlet on (`1/true`) or off (`0/false`).
+* `STATE`: whether to switch the device on (`1/true`) or off (`0/false`).
 * `LEVEL`: set dim level (0 = min, 15 = max).
 
 ## New-style addressing
