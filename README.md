@@ -22,14 +22,21 @@ This will install the module, and its requirement ([`rpio`](https://github.com/j
 ## Usage
 
 ```
-const kaku = require('kaku-rpi')(PIN, [PERIODUSEC, REPEATS]);
+const Driver = require('kaku-rpi');
+
+// Choose between old-style and new-style devices.
+let driver = Driver.oldStyle(PIN);
+let driver = Driver.newStyle(PIN);
 
 // Switch a device on or off:
-kaku.switch(ADDRESS, DEVICE, STATE)
+driver.switch(ADDRESS, DEVICE, STATE)
 
 // Shortcuts:
-kaku.on(ADDRESS, DEVICE)
-kaku.off(ADDRESS, DEVICE)
+driver.on(ADDRESS, DEVICE)
+driver.off(ADDRESS, DEVICE)
+
+// New-style only: dim a device;
+driver.dim(ADDRESS, DEVICE, LEVEL)
 ```
 
 Arguments:
@@ -37,17 +44,14 @@ Arguments:
 * `PIN`: the GPIO pin that the transmitter is hooked up to. This is the _physical_ pin number, not the GPIO (mapped) number. Referring to the hardware page linked to above, it's using pin 11 (which is BCM GPIO pin number 17, but again, we're using the physical pin number, so 11).
 * `PERIODUSEC`: number of microseconds to sleep between high/low transitions. This should be 375 (which is also the default).
 * `REPEATS`: number of times to repeat commands. This should be 8 (= the default).
-* `ADDRESS/DEVICE`: KaKu works with addresses (`A`, `B`, `C`, …) and devices (`1`, `2`, `3`, …). An outlet is configured to listen on a particular ADDRESS/DEVICE pair.
+* `ADDRESS/DEVICE`: KaKu works with addresses (`A`, `B`, `C`, … for old-style devices, and a number for new-style devices) and devices (`1`, `2`, `3`, …). An device is configured to listen on a particular ADDRESS/DEVICE pair.
 * `STATE`: whether to switch the outlet on (`1/true`) or off (`0/false`).
+* `LEVEL`: set dim level (0 = min, 15 = max).
 
-## Example
+## New-style addressing
 
-Switching the device C2 on, and a second later, off again:
+New-style devices are self-learning: you put them in learning mode, send an _ON_ command from your remote, and the device will learn its address and device number.
 
-```
-const kaku = require('kaku-rpi')(11);
+To find out which address your remote is sending, you'll need a 433Mhz receiver, hardware to connect it to, and software to read the code. I've used [this Arduino sketch](https://bitbucket.org/fuzzillogic/433mhzforarduino/src/0847a6d8a9173abd5abf9cf571a1539f56588c0e/NewRemoteSwitch/examples/ShowReceivedCode/ShowReceivedCode.ino) (and the library that contains it) to find out the code my remote is sending.
 
-kaku.on('C', 2);
-setTimeout(() => kaku.off('C', 2));
-```
-
+Alternatively, you can also put your device in learning mode and send an _ON_ command with this library, using any address code you like. Most devices can be paired with multiple remotes, so you can use both your regular remote and the Raspberry Pi simultaneously.
