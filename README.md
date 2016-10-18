@@ -23,32 +23,39 @@ This will install the module, and its requirement ([`rpio`](https://github.com/j
 
 ## Usage
 
-```
-const Driver = require('kaku-rpi');
+Note: the driver can address both old-style and new-style devices. How to talk to a device is determined by the `ADDRESS` argument for each command: if it's numerical, it's considered to address a new-style device. Otherwise, it's considered to address an old-style device.
 
-// Choose between old-style and new-style devices.
-let driver = Driver.oldStyle(PIN);
-let driver = Driver.newStyle(PIN);
+```
+const KlikAanKlikUit = require('kaku-rpi');
+
+// Instanciate driver.
+let kaku = KlikAanKlikUit([PIN, PERIODUSEC, REPEATS, PULSEWIDTH]);
 
 // Switch a device on or off:
-driver.switch(ADDRESS, DEVICE, STATE)
+kaku.transmit(ADDRESS, DEVICE, STATE)
 
 // Shortcuts:
-driver.on(ADDRESS, DEVICE)
-driver.off(ADDRESS, DEVICE)
+kaku.on(ADDRESS, DEVICE)
+kaku.off(ADDRESS, DEVICE)
 
-// New-style only: dim a device;
-driver.dim(ADDRESS, DEVICE, LEVEL)
+// New-style only:
+kaku.dim(ADDRESS, DEVICE, LEVEL) // dim a device
+kaku.group(ADDRESS, STATE)       // turn a group on or off
+kaku.groupOn(ADDRESS)            // turn a group on
+kaku.groupOff(ADDRESS)           // turn a group off
 ```
 
 Arguments:
 
 * `PIN`: the GPIO pin that the transmitter is hooked up to. This is the _physical_ pin number, not the GPIO (mapped) number. Referring to the hardware page linked to above, it's using pin 11 (which is BCM GPIO pin number 17, but again, we're using the physical pin number, so 11).
-* `PERIODUSEC`: number of microseconds to sleep between high/low transitions. This should be 375 (which is also the default).
-* `REPEATS`: number of times to repeat commands. This should be 8 (= the default).
+* `PERIODUSEC`: number of microseconds to sleep between high/low transitions (default: 375 for old-style, 260 for new-style).
+* `REPEATS`: number of times to repeat commands (default: 7 for both styles).
+* `PULSEWIDTH`: pulse width (default: 5, only used by new-style driver for now).
 * `ADDRESS/DEVICE`: KaKu works with addresses (`A`, `B`, `C`, … for old-style devices, and a number for new-style devices) and devices (`1`, `2`, `3`, …). An device is configured to listen on a particular ADDRESS/DEVICE pair.
 * `STATE`: whether to switch the device on (`1/true`) or off (`0/false`).
 * `LEVEL`: set dim level (0 = min, 15 = max).
+
+**NB**: `PERIODUSEC`, `REPEATS` and `PULSEWIDTH` are different for old- and new-style. The respective drivers use sensible defaults, but if you set them they get used for both drivers, which basically makes the instance usable for only one type (old or new, but not both). In that case, if you want to control both types of devices, create an instance for each type.
 
 ## New-style addressing
 

@@ -7,6 +7,7 @@
   "license": "MIT",
   "repository": "robertklep/node-kaku-rpi",
   "dependencies": {
+    "debug": "^2.2.0",
     "rpio": "^0.9.12"
   }
 }
