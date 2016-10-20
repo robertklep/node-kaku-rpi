@@ -4,6 +4,8 @@ Node.js driver for Raspberry Pi to control KlikAanKlikUit (_KaKu_) devices using
 
 The required hardware setup for this module is documented [here](http://shop.ninjablocks.com/blogs/how-to/7506204-adding-433-to-your-raspberry-pi) (we're only using the transmitter module). It consists of a simple, cheap 433Mhz transmitter (like [this one](http://www.dx.com/p/433mhz-wireless-transmitter-module-superregeneration-for-arduino-green-149254)) hooked up to the RaspPi's GPIO pins.
 
+**DISCLAIMER**: this module is not in any way endorsed by, or related to, COCO International B.V. or Trust International B.V.
+
 ## Attribution
 
 The core of the code is based on [original work](https://bitbucket.org/fuzzillogic/433mhzforarduino/src/0847a6d8a9173abd5abf9cf571a1539f56588c0e/RemoteSwitch/) from [Randy Simons](http://randysimons.nl/).
