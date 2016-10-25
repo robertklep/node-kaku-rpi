@@ -1,0 +1,24 @@
+#!/usr/bin/env node
+'use strict';
+
+if (process.argv.length !== 6) {
+  process.stderr.write(`
+Use: ${ process.argv[1].replace(/.*\//, '') } PIN ADDRESS UNIT [1|0]
+
+Options:
+
+  PIN        GPIO pin (physical numbering)
+  ADDRESS    Device address (numerical for new devices, character for older)
+  UNIT       Device unit number (0, 1, ...)
+  [1|0]      State to switch to ('1' = on, '0' = off)
+
+
+`);
+  process.exit(1);
+}
+const driver = require('..')(Number(process.argv[2]));
+let address  = Number(process.argv[3]) || process.argv[3];
+let unit     = Number(process.argv[4]);
+let state    = process.argv[5] === '1';
+
+driver.transmit(address, unit, state);

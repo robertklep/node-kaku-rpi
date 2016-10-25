@@ -2,6 +2,9 @@
   "name": "kaku-rpi",
   "version": "1.1.0",
   "description": "Node KlikAanKlikUit (KaKu) driver for Raspberry Pi",
+  "bin": {
+    "kaku": "./bin/kaku"
+  },
   "main": "index.js",
   "author": "Robert Klep <robert@klep.name>",
   "license": "MIT",
