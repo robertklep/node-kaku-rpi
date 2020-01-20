@@ -2,7 +2,7 @@
 
 Node.js driver for Raspberry Pi to control KlikAanKlikUit (_KaKu_) devices using a 433Mhz transmitter.
 
-The required hardware setup for this module is documented [here](http://shop.ninjablocks.com/blogs/how-to/7506204-adding-433-to-your-raspberry-pi) (we're only using the transmitter module). It consists of a simple, cheap 433Mhz transmitter (like [this one](http://www.dx.com/p/433mhz-wireless-transmitter-module-superregeneration-for-arduino-green-149254)) hooked up to the RaspPi's GPIO pins.
+The required hardware setup for this module is documented [here](https://domoticproject.com/controlling-433-mhz-remote-raspberry-pi/) (we're only using the transmitter module). It consists of a simple, cheap 433Mhz transmitter (like [this one](http://www.dx.com/p/433mhz-wireless-transmitter-module-superregeneration-for-arduino-green-149254)) hooked up to the RaspPi's GPIO pins.
 
 **DISCLAIMER**: this module is not in any way endorsed by, or related to, COCO International B.V. or Trust International B.V.
 
@@ -49,7 +49,7 @@ kaku.groupOff(ADDRESS)           // turn a group off
 
 Arguments:
 
-* `PIN`: the GPIO pin that the transmitter is hooked up to. This is the _physical_ pin number, not the GPIO (mapped) number. Referring to the hardware page linked to above, it's using pin 11 (which is BCM GPIO pin number 17, but again, we're using the physical pin number, so 11).
+* `PIN`: the GPIO pin that the transmitter is hooked up to. This is the _physical_ pin number, not the GPIO (mapped) number. By default this module assumes that the transmitter is connected to pin 11 (which is BCM GPIO pin number 17, but again, we're using the physical pin number, so 11).
 * `PERIODUSEC`: number of microseconds to sleep between high/low transitions (default: 375 for old-style, 260 for new-style).
 * `REPEATS`: number of times to repeat commands (default: 7 for both styles).
 * `PULSEWIDTH`: pulse width (default: 5, only used by new-style driver for now).
